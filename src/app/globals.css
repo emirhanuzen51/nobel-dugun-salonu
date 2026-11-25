@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --color-midnight: #171511;
+  --color-midnight-2: #211e18;
+  --color-midnight-3: #2c2820;
+  --color-champagne: #c6a66b;
+  --color-champagne-2: #e2cb98;
+  --color-champagne-deep: #9a7d45;
+  --color-ivory: #f5f0e7;
+  --color-ivory-2: #ece4d6;
+  --color-mocha: #776b5d;
+  --color-sage: #8b927a;
+
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+
+  --animate-kenburns: kenburns 14s ease-out forwards;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-shine: shine 4s linear infinite;
+}
+
+@keyframes kenburns { from { transform: scale(1.18); } to { transform: scale(1); } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes shine { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+html { scroll-padding-top: 90px; }
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto !important; }
+body { background: var(--color-ivory); color: var(--color-midnight); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+::selection { background: var(--color-champagne); color: var(--color-midnight); }
+
+.gold-text {
+  background: linear-gradient(100deg, #9a7d45 0%, #e2cb98 25%, #c6a66b 45%, #f4e3bb 55%, #9a7d45 80%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gold-line { background: linear-gradient(90deg, transparent, #c6a66b, transparent); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
