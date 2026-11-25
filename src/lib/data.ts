@@ -59,8 +59,8 @@ export const venues: Venue[] = [
     kind: "Açık hava kır bahçesi",
     short: "Doğal çim zemin, asırlık ağaçlar ve masalsı ışıklandırmalarla bölgenin en görkemli kır alanı.",
     long: "Nobel Kır Bahçesi, Şanlıurfa Karaköprü'nün en ferah noktasında, 2.500 kişiye kadar uzanan kapasitesi ve yemyeşil doğal çim zeminiyle unutulmaz açık hava davetlerine ev sahipliği yapar. Romantik gelin yolu, açık hava nikâh sahnesi, dinamik robot ışık sistemleri ve geniş dans pistiyle rüya gibi bir gece sunar.",
-    cover: "/img/bahce-gece.jpg",
-    pano: "/img/bahce-gece.jpg",
+    cover: "/img/nobel/nobel-kir-bahcesi-gece.jpg",
+    pano: "/img/nobel/nobel-kir-bahcesi-gece.jpg",
     min: 500,
     max: 2500,
     area: "8.500 m² bahçe",
@@ -76,7 +76,7 @@ export const venues: Venue[] = [
       "Engelsiz düzayak misafir erişimi",
     ],
     events: ["Kır düğünü", "Açık hava nikâh töreni", "Yaz sünnet şöleni", "Büyük yemekli davetler"],
-    gallery: ["/img/bahce-masa.jpg", "/img/bahce-isik.jpg", "/img/avize-yesil.jpg", "/img/masa-uzun.jpg", "/img/ahsap-masa.jpg", "/img/masa-renkli.jpg"],
+    gallery: ["/img/nobel/nobel-kir-bahcesi-gece.jpg", "/img/nobel/nobel-ozel-sahne.jpg", "/img/nobel/nobel-dis-cephe.jpg", "/img/bahce-masa.jpg", "/img/bahce-isik.jpg", "/img/masa-uzun.jpg"],
     hotspots: [
       { x: 20, t: "Nikâh töreni alanı", d: "Çiçek kemerli ve özel kürsülü açık hava nikâh sahnesi." },
       { x: 52, t: "Işıklı bahçe ağaçları", d: "Gece gökyüzünü aydınlatan yüzlerce sarı peri led aydınlatma." },
@@ -89,8 +89,8 @@ export const venues: Venue[] = [
     kind: "Lüks kapalı balo salonu",
     short: "Kristal avizeler, yüksek tavan mimarisi ve dev sahnesiyle dört mevsim saray konforu.",
     long: "Nobel Balo Salonu; yüksek tavanlı saray mimarisi, görkemli kristal avizeleri ve kolon bulunmayan ferah görüş açısıyla kapalı salon davetleri için tasarlandı. Güçlü merkezi havalandırma ve iklimlendirme sistemleri sayesinde her mevsim aynı konforu yaşatır.",
-    cover: "/img/balo-salon.jpg",
-    pano: "/img/balo-tiyatro.jpg",
+    cover: "/img/nobel/nobel-balo-salonu.jpg",
+    pano: "/img/nobel/nobel-isikli-salon.jpg",
     min: 400,
     max: 1500,
     area: "2.200 m² kapalı alan",
@@ -106,7 +106,7 @@ export const venues: Venue[] = [
       "Ayrı çocuk eğlence odası",
     ],
     events: ["Salon düğünü", "Kına gecesi", "Kurumsal kongre & gala", "Geleneksel yemekli davet"],
-    gallery: ["/img/saray-avize.jpg", "/img/balo-salon.jpg", "/img/salon-lounge.jpg", "/img/avize-sb.jpg", "/img/dans-sis.jpg", "/img/kutuphane-davet.jpg"],
+    gallery: ["/img/nobel/nobel-balo-salonu.jpg", "/img/nobel/nobel-isikli-salon.jpg", "/img/nobel/nobel-giris-tagi.jpg", "/img/saray-avize.jpg", "/img/salon-lounge.jpg", "/img/dans-sis.jpg"],
     hotspots: [
       { x: 16, t: "VIP aile locaları", d: "Özel misafirler ve aile büyükleri için ayrılmış konforlu alanlar." },
       { x: 48, t: "Ana orkestra sahnesi", d: "Canlı müzik ve gösteriler için 14 metrelik profesyonel sahne." },
@@ -235,6 +235,12 @@ export const menus: Menu[] = [
 
 export type Photo = { src: string; cat: string; alt: string; tall?: boolean };
 export const gallery: Photo[] = [
+  { src: "/img/nobel/nobel-dis-cephe.jpg", cat: "Dış Cephe", alt: "Nobel Düğün Kompleksi görkemli dış cephe ve giriş" },
+  { src: "/img/nobel/nobel-kir-bahcesi-gece.jpg", cat: "Kır Bahçesi", alt: "Nobel Kır Bahçesi gece açık hava düğünü", tall: true },
+  { src: "/img/nobel/nobel-balo-salonu.jpg", cat: "Balo Salonu", alt: "Nobel Balo Salonu kristal dev avizeler ve masa düzeni" },
+  { src: "/img/nobel/nobel-isikli-salon.jpg", cat: "Tören Alanı", alt: "Nobel ışıklı tören alanı ve kristal şamdanlar", tall: true },
+  { src: "/img/nobel/nobel-giris-tagi.jpg", cat: "Giriş Tagı", alt: "Nobel çiçekli gelin yolu ve karşılama panosu" },
+  { src: "/img/nobel/nobel-ozel-sahne.jpg", cat: "Nikâh Sahnesi", alt: "Nobel açık hava nikâh ve kına tahtı sahnesi", tall: true },
   { src: "/img/dans-sis.jpg", cat: "İlk dans", alt: "Sis ve ışık efektleriyle ilk dans" },
   { src: "/img/saray-avize.jpg", cat: "Salonlar", alt: "Nobel Balo Salonu kristal avize ve sahne", tall: true },
   { src: "/img/masa-mum.jpg", cat: "Masa düzeni", alt: "Ziyafet sofrası ve şık masa düzeni" },

@@ -4,12 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, animate, motion, useInView, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { ArrowDown, ArrowRight, ArrowUpRight, Users } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Sparkles as SparklesIcon, Users } from "lucide-react";
 import { concepts, otherEvents, prestige, venues } from "@/lib/data";
 import { Kicker, Lines, Reveal, ease } from "@/components/ui";
 
-/* ---------------- Sinematik giriş ---------------- */
-const slides = ["/img/balo-salon.jpg", "/img/dans-sis.jpg", "/img/bahce-gece.jpg", "/img/balo-tiyatro.jpg"];
+/* ---------------- Sinematik giriş — Gerçek Nobel Düğün Kompleksi Fotoğrafları ---------------- */
+const slides = [
+  { src: "/img/nobel/nobel-dis-cephe.jpg", label: "Görkemli Dış Mimari & Karşılama", badge: "Giriş Kompleksi" },
+  { src: "/img/nobel/nobel-kir-bahcesi-gece.jpg", label: "2.500 Kişilik Masalsı Kır Bahçesi", badge: "Açık Hava" },
+  { src: "/img/nobel/nobel-balo-salonu.jpg", label: "Kristal Avizeli Saray Balo Salonu", badge: "Kapalı Salon" },
+  { src: "/img/nobel/nobel-isikli-salon.jpg", label: "Işıklı Tören & Ziyafet Alanı", badge: "Balo Salonu" },
+  { src: "/img/nobel/nobel-giris-tagi.jpg", label: "Çiçekli Gelin Yolu & Karşılama Tagı", badge: "Karşılama" },
+  { src: "/img/nobel/nobel-ozel-sahne.jpg", label: "Özel Tasarım Nikâh & Kına Sahnesi", badge: "Açık Hava Sahne" },
+];
 
 function Sparkles() {
   const [dots, setDots] = useState<{ x: number; d: number; s: number; t: number }[]>([]);
@@ -31,32 +38,80 @@ export function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const o = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  // Otomatik geçiş (5 saniyede bir)
   useEffect(() => {
-    const t = setInterval(() => setI((x) => (x + 1) % slides.length), 6500);
+    const t = setInterval(() => setI((x) => (x + 1) % slides.length), 5000);
     return () => clearInterval(t);
   }, []);
+
+  const nextSlide = () => setI((x) => (x + 1) % slides.length);
+  const prevSlide = () => setI((x) => (x - 1 + slides.length) % slides.length);
+
   return (
     <section ref={ref} id="top" className="relative h-[100svh] min-h-[680px] overflow-hidden bg-midnight text-ivory">
+      {/* Arka plan sinematik slayt geçişi */}
       <motion.div style={{ y }} className="absolute inset-0">
         <AnimatePresence initial={false}>
-          <motion.div key={i} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 2 }}>
-            <div className="absolute inset-0 animate-kenburns">
-              <Image src={slides[i]} alt="" fill priority={i === 0} sizes="100vw" className="object-cover" />
+          <motion.div
+            key={i}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.8, ease: "easeInOut" }}
+          >
+            <div className="absolute inset-0">
+              <Image
+                src={slides[i].src}
+                alt={slides[i].label}
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                className="object-cover"
+              />
             </div>
           </motion.div>
         </AnimatePresence>
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-midnight/70 via-midnight/30 to-midnight/90" />
+
+      {/* Karartma ve atmosfer katmanları */}
+      <div className="absolute inset-0 bg-gradient-to-b from-midnight/75 via-midnight/35 to-midnight/90" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(23,21,17,0.75)_100%)]" />
       <Sparkles />
 
-      <motion.div style={{ opacity: o }} className="relative flex h-full flex-col items-center justify-center px-5 pt-16 text-center">
+      {/* Aktif Fotoğraf Rozeti (Sol Üst / Sağ Üst) */}
+      <div className="absolute top-28 left-6 sm:left-10 z-20 hidden sm:flex items-center gap-2 rounded-full border border-champagne/30 bg-midnight/60 px-4 py-1.5 backdrop-blur-md">
+        <span className="h-2 w-2 rounded-full bg-champagne animate-pulse" />
+        <span className="text-[11px] font-semibold text-champagne-2 tracking-wider">
+          {slides[i].badge} · {slides[i].label}
+        </span>
+      </div>
+
+      {/* Manuel Önceki / Sonraki Butonları */}
+      <button
+        onClick={prevSlide}
+        aria-label="Önceki fotoğraf"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 hidden md:grid h-12 w-12 place-items-center rounded-full border border-ivory/20 bg-midnight/40 text-ivory backdrop-blur-md transition hover:border-champagne hover:bg-champagne hover:text-midnight cursor-pointer"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
+      <button
+        onClick={nextSlide}
+        aria-label="Sonraki fotoğraf"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 hidden md:grid h-12 w-12 place-items-center rounded-full border border-ivory/20 bg-midnight/40 text-ivory backdrop-blur-md transition hover:border-champagne hover:bg-champagne hover:text-midnight cursor-pointer"
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
+
+      {/* Ana Başlık ve İçerik */}
+      <motion.div style={{ opacity: o }} className="relative flex h-full flex-col items-center justify-center px-5 pt-16 text-center z-10">
         <motion.p initial={{ opacity: 0, letterSpacing: "0.2em" }} animate={{ opacity: 1, letterSpacing: "0.48em" }} transition={{ duration: 2, delay: 0.4, ease }} className="text-[11px] font-semibold uppercase text-champagne-2">
           NOBEL · Düğün Kompleksi &amp; Kır Bahçesi
         </motion.p>
         <Lines as="h1" delay={0.6} className="mt-8 font-serif text-[clamp(3.2rem,9vw,9.5rem)] font-light leading-[0.92] tracking-[-0.01em]" lines={["Aşkınızın", <em key="b" className="gold-text animate-shine font-normal">en görkemli hâli.</em>]} />
         <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.4, delay: 1.3, ease }} className="mt-8 max-w-xl text-base leading-relaxed text-ivory/75 sm:text-lg">
-          Hayalinizdeki düğün; kusursuz detaylar ve unutulmaz anlarla gerçeğe dönüşsün.
+          Şanlıurfa Karaköprü&apos;de 2.500 kişilik açık hava kır bahçesi ve lüks saray balo salonuyla hayalinizdeki düğün gerçeğe dönüşsün.
         </motion.p>
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.4, delay: 1.5, ease }} className="mt-11 flex flex-col gap-3 sm:flex-row">
           <a href="#salonlar" className="group inline-flex items-center justify-center gap-3 rounded-full bg-champagne py-2 pl-8 pr-2 text-sm font-semibold text-midnight transition hover:bg-champagne-2">
@@ -71,16 +126,32 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
-      <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-ivory/50 sm:flex">
+      {/* Kaydırma İpucu */}
+      <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-ivory/50 sm:flex z-10">
         Keşfetmek için kaydırın
         <motion.span animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }}>
           <ArrowDown className="h-4 w-4 text-champagne" />
         </motion.span>
       </div>
-      <div className="absolute bottom-10 right-8 hidden gap-2 lg:flex">
-        {slides.map((_, k) => (
-          <button key={k} onClick={() => setI(k)} aria-label={`${k + 1}. görsel`} className="h-1 w-10 overflow-hidden rounded-full bg-ivory/20">
-            {k === i && <motion.span key={i} className="block h-full bg-champagne" initial={{ width: 0 }} animate={{ width: "100%" }} transition={{ duration: 6.5, ease: "linear" }} />}
+
+      {/* Alt Çizgisel Slayt İlerleme Göstergeleri (Mobil & Masaüstü) */}
+      <div className="absolute bottom-8 sm:bottom-10 right-1/2 translate-x-1/2 lg:translate-x-0 lg:right-8 flex gap-2 z-20">
+        {slides.map((s, k) => (
+          <button
+            key={k}
+            onClick={() => setI(k)}
+            aria-label={`${k + 1}. görsel: ${s.label}`}
+            className="group relative h-1.5 w-8 sm:w-10 overflow-hidden rounded-full bg-ivory/25 hover:bg-ivory/40 transition cursor-pointer"
+          >
+            {k === i && (
+              <motion.span
+                key={i}
+                className="block h-full bg-champagne"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 5, ease: "linear" }}
+              />
+            )}
           </button>
         ))}
       </div>
